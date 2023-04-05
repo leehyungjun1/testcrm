@@ -1,0 +1,104 @@
+{*** [위젯] 회원가입/배송지 정보 기본 | member/_join_shipping.html ***}
+<div class="base_info_box">
+    <h3  class="joinshipping_tit">
+		<span class="form_element">
+        <input type="checkbox" id="myShippingSave" name="myShippingSave" > <!-- css 필요 : 나의 배송지 정보 입력 여부-->
+        <label for="myShippingSave" class="check_s" style="vertical-align:middle; font-size:18px;">{=__('배송지 정보')} </label>
+		</span>
+		<i style="cursor: pointer" class="tool_tip">?</i> 
+    </h3>
+	<div class="tool_wrap" style="width:350px;">
+		<h2>배송 관리</h2>
+		<p>고객 배송시 사용할 배송지 정보를 입력하는 곳입니다. <br>배송지 추가 및 변경을 하고자 할 때에는 <br> 마이페이지 &gt; 나의 정보 &gt; 배송지 관리에서 변경해 주세요. </p>
+		<a href="#;" class="tool_tip_close">닫기</a>
+	</div><!-- // tool_wrap -->
+    <p><span class="form_element">기본 주소 동일 <label for="sameShipping" class="check_s" style="vertical-align:middle; margin-left:5px;"><input type="checkbox" id="sameShipping" ></label></span></p> <!-- css 필요 : 나의 배송지 기본 정보 복사-->
+    
+    
+    <div class="base_info_sec mt10">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <colgroup>
+                <col width="25%">
+                <col width="75%">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th scope="row">{=__('배송지 이름')}</th>
+                    <td><input type="text" name="shippingTitle" data-pattern="{? gGlobal['isFront']}gdMemberNmGlobal{:}gdEngKor{/}" maxlength="20"/></td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="important">{=__('받으실분')}</span></th>
+                    <td><input type="text" name="receiverName" data-pattern="{? gGlobal['isFront']}gdMemberNmGlobal{:}gdEngKor{/}" maxlength="20"/></td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="important">{=__('받으실 곳')}</span></th>
+                    <td class="member_address">
+                        <div class="address_postcode">
+                            <input type="text" name="receiverZonecode" readonly="readonly" />
+                            <input type="hidden" name="receiverZipcode"/>
+                            <button type="button" class="btn_post_search" onclick="gd_postcode_search('receiverZonecode', 'receiverAddress', 'receiverZipcode');">{=__('우편번호검색')}</button>
+                        </div>
+                        <div class="address_input">
+                            <input type="text" name="receiverAddress" readonly="readonly"/>
+                            <input type="text" name="receiverAddressSub" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">{=__('받는 분 일반 전화')}</th>
+                    <td>
+                        <input type="text" id="receiverPhone" name="receiverPhone" />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="important">{=__('받는 분 휴대폰')}</span></th>
+                    <td>
+                        <input type="text" id="receiverCellPhone" name="receiverCellPhone"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <!-- //base_info_sec -->
+</div>
+<!-- //base_info_box -->
+
+<script type="text/javascript">
+
+// 배송지 : 기본 정보 할당
+$('#sameShipping').click(function(){
+    
+    if ( $(this).is(':checked') )
+    {
+        // 기본 배송지 변수 할당
+        var baseName = $('input[name=memNm]').val() ,
+            baseZonecode = $('input[name=zonecode]').val() ,
+            baseAddress = $('input[name=address]').val() ,
+            baseAddressSub = $('input[name=addressSub]').val() ,
+            basePhone = $('input[name=phone]').val() ,
+            baseCellPhone = $('input[name=cellPhone]').val() ;
+
+        // 나의 배송지 정보 입력
+        $('input[name="shippingTitle"]').val(baseName);
+        $('input[name="receiverName"]').val(baseName);
+        $('input[name="receiverZonecode"]').val(baseZonecode);
+        $('input[name="receiverAddress"]').val(baseAddress);
+        $('input[name="receiverAddressSub"]').val(baseAddressSub);
+        $('input[name="receiverPhone"]').val(basePhone);
+        $('input[name="receiverCellPhone"]').val(baseCellPhone);
+    }
+    else
+    {
+        // 나의 배송지 정보 초기화
+        $('input[name="shippingTitle"]').val('');
+        $('input[name="receiverName"]').val('');
+        $('input[name="receiverZonecode"]').val('');
+        $('input[name="receiverAddress"]').val('');
+        $('input[name="receiverAddressSub"]').val('');
+        $('input[name="receiverPhone"]').val('');
+        $('input[name="receiverCellPhone"]').val('');
+    }
+});
+
+</script>
